@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:helloworld/utils/routs.dart';
+import 'package:helloworld/utils/widgets/themes.dart';
 import 'pages/homepage.dart';
 import 'pages/loginpage.dart';
+import 'package:flutter/src/material/text_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,10 +20,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         // home: Homepage(),
         themeMode: ThemeMode.light,
-        theme: ThemeData(primarySwatch: Colors.red),
-        darkTheme: ThemeData(
-          brightness: Brightness.dark,
-        ),
+        theme: MyTheme.lightTheme(context),
+        darkTheme: MyTheme.darkTheme(context),
         debugShowCheckedModeBanner: false,
         initialRoute: MyRouter.homeRoute,
         routes: {
