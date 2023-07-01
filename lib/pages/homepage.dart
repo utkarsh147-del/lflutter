@@ -44,15 +44,44 @@ class _HomepageState extends State<Homepage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: (CatalogueModel.items != null && CatalogueModel.items.isNotEmpty)
-            ? ListView.builder(
-                // itemCount: CatalogueModel.items.length,
-                itemCount: CatalogueModel.items.length,
+            ? GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 16),
                 itemBuilder: (context, index) {
-                  return ItemWidget(
-                    // item: CatalogueModel.items[index],
-                    item: CatalogueModel.items[index],
+                  final item = CatalogueModel.items[index];
+                  return Card(
+                    clipBehavior: Clip.antiAlias,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    child: GridTile(
+                      header: Container(
+                        child: Text(
+                          item.name,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Colors.deepPurple,
+                        ),
+                      ),
+                      footer: Container(
+                        child: Text(
+                          item.price.toString(),
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                        ),
+                      ),
+                      child: Image.network(item.image),
+                    ),
                   );
-                })
+                },
+                itemCount: CatalogueModel.items.length,
+              )
             : Center(
                 child: CircularProgressIndicator(),
               ),
