@@ -7,6 +7,10 @@ import 'package:helloworld/utils/widgets/item_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../utils/widgets/drawer.dart';
+
+import '../utils/widgets/home_widgets/catalog_header.dart';
+import '../utils/widgets/home_widgets/catalog_image.dart';
+import '../utils/widgets/home_widgets/catalog_list.dart';
 import '../utils/widgets/themes.dart';
 
 class Homepage extends StatefulWidget {
@@ -51,43 +55,14 @@ class _HomepageState extends State<Homepage> {
               CatHeader(),
               if (CatalogueModel.items != null &&
                   CatalogueModel.items.isNotEmpty)
-                CatalogList().expand()
+                CatalogList().py16().expand()
               else
-                Center(child: CircularProgressIndicator())
+                CircularProgressIndicator().centered().py16().expand(),
             ],
           ),
         ),
       ),
     );
-  }
-}
-
-class CatHeader extends StatelessWidget {
-  const CatHeader({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        "Catalog App".text.xl5.bold.color(MyTheme.darkblue).make(),
-        "trending products".text.xl2.make(),
-      ],
-    );
-  }
-}
-
-class CatalogList extends StatelessWidget {
-  const CatalogList({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: CatalogueModel.items.length,
-        itemBuilder: (context, index) {
-          final catalog = CatalogueModel.items[index];
-          return CatalogItem(catalog: catalog);
-        });
   }
 }
 
@@ -101,8 +76,11 @@ class CatalogItem extends StatelessWidget {
     return VxBox(
         child: Row(
       children: [
-        CatalogImage(
-          image: catalog.image,
+        Hero(
+          tag: Key(catalog.id.toString()),
+          child: CatalogImage(
+            image: catalog.image,
+          ),
         ),
         Expanded(
             child: Column(
@@ -119,43 +97,10 @@ class CatalogItem extends StatelessWidget {
               text: TextSpan(text: catalog.desc, style: context.captionStyle),
             ),
 
-            ButtonBar(
-              alignment: MainAxisAlignment.spaceBetween,
-              buttonPadding: Vx.mH8,
-              children: [
-                "\$${catalog.price}".text.bold.xl.make(),
-                10.heightBox,
-                ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(MyTheme.darkblue),
-                        shape: MaterialStateProperty.all(StadiumBorder())),
-                    child: "Buy".text.make())
-              ],
-            ).pOnly(right: 8.0)
             // catalog.desc.text.textStyle(context.captionStyle).make()
           ],
         ))
       ],
     )).white.rounded.square(100).make().py16();
-  }
-}
-
-class CatalogImage extends StatelessWidget {
-  // const CatalogImage({ Key? key }) : super(key: key);
-  final String image;
-
-  const CatalogImage({super.key, required this.image});
-  @override
-  Widget build(BuildContext context) {
-    return Image.network(image)
-        .box
-        .rounded
-        .p8
-        .color(MyTheme.creamColor)
-        .make()
-        .p16()
-        .w40(context);
   }
 }
