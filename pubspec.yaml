@@ -20,6 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
   velocity_x: ^3.5.1
+  cupertino_icons: ^1.0.3
   # velociy_x: ^1.4.1
 
 dev_dependencies:

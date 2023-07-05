@@ -11,24 +11,29 @@ class HomeDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
-        backgroundColor: MyTheme.creamColor,
-        bottomNavigationBar: ButtonBar(
-          alignment: MainAxisAlignment.spaceBetween,
-          buttonPadding: Vx.mH8,
-          children: [
-            "\$${catalog.price}".text.bold.xl4.red800.make(),
-            10.heightBox,
-            ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(MyTheme.darkblue),
-                        shape: MaterialStateProperty.all(StadiumBorder())),
-                    child: "Buy".text.make())
-                .wh(100, 50)
-          ],
-        ).p32(),
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+        ),
+        backgroundColor: context.canvasColor,
+        bottomNavigationBar: Container(
+          color: context.cardColor,
+          child: ButtonBar(
+            alignment: MainAxisAlignment.spaceBetween,
+            buttonPadding: Vx.mH8,
+            children: [
+              "\$${catalog.price}".text.bold.xl4.red800.make(),
+              10.heightBox,
+              ElevatedButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(context.primaryColor),
+                          shape: MaterialStateProperty.all(StadiumBorder())),
+                      child: "Add to cart".text.make())
+                  .wh(120, 50)
+            ],
+          ).p32(),
+        ),
         body: SafeArea(
           bottom: false,
           child: Column(
@@ -43,7 +48,7 @@ class HomeDetailPage extends StatelessWidget {
                 arcType: VxArcType.CONVEY,
                 edge: VxEdge.TOP,
                 child: Container(
-                    color: Colors.white,
+                    color: context.cardColor,
                     width: context.screenWidth,
                     child: Column(
                       children: [
@@ -52,7 +57,7 @@ class HomeDetailPage extends StatelessWidget {
                             text: catalog.name,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black,
+                                color: context.accentColor,
                                 fontSize: 34.0),
                           ),
                         ),
